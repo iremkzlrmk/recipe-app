@@ -40,11 +40,14 @@ public class RecipeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
+        Recipe recipe = recipes.get(position);
         View rowView;
         rowView = inflater.inflate(R.layout.row,null);
         TextView txtItemName = rowView.findViewById(R.id.txtItemName);
-        Recipe recipe = recipes.get(position);
+        ImageView imgRecipe = rowView.findViewById(R.id.imgRecipe);
+
         txtItemName.setText(recipe.getName());
+        imgRecipe.setImageResource(R.drawable.ic_launcher_foreground);
 
         return rowView;
 

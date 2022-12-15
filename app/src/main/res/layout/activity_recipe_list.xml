@@ -7,28 +7,32 @@
     tools:context=".RecipeListActivity">
 
     <Button
-        android:id="@+id/btnBackRecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/btnAddRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="add"
         app:layout_constraintBottom_toTopOf="@+id/lvRecipe"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnBackRecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/lvRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnAddRecipe">

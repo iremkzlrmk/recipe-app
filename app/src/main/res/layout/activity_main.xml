@@ -4,14 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <Button
         android:id="@+id/btnGoRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="recipes"
+        android:text="chef's cookbook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnGoMyRecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="my cookbook"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoRecipes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
