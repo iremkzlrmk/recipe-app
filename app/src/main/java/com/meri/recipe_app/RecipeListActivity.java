@@ -9,11 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class RecipeListActivity extends AppCompatActivity {
                     Recipe recipe = new Recipe();
                     recipe.setName(data.getCharSequenceExtra("recipeName").toString());
                     recipe.setMakingOf(data.getCharSequenceExtra("recipeMakingOf").toString());
+                    recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
                     recipes.add(recipe);
                     ((RecipeAdapter) listView.getAdapter()).notifyDataSetChanged();
                 }
@@ -73,6 +77,8 @@ public class RecipeListActivity extends AppCompatActivity {
                 Recipe recipe = recipes.get(i);
                 bundle.putCharSequence("recipeName",recipe.getName());
                 bundle.putCharSequence("recipeMakingOf",recipe.getMakingOf());
+                bundle.putCharSequence("recipeIngredients",recipe.getIngredients());
+                bundle.putParcelable("recipeImage", recipe.getImage());
                 intent.putExtras(bundle);
 //                startActivity(intent);
                 launcher.launch(intent);

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RecipeDisplayActivity extends AppCompatActivity {
@@ -24,12 +25,14 @@ public class RecipeDisplayActivity extends AppCompatActivity {
 
         TextView displayRecipeName = findViewById(R.id.txtDisplayRecipeName);
         TextView displayRecipeMakingOf = findViewById(R.id.txtDisplayRecipeMakingOf);
+        ImageView displayRecipeImage = findViewById(R.id.imgDisplayRecipe);
 
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null){
             displayRecipeName.setText(bundle.getCharSequence("recipeName", null));
             displayRecipeMakingOf.setText(bundle.getCharSequence("recipeMakingOf", null));
+            displayRecipeImage.setImageBitmap(bundle.getParcelable("recipeImage"));
         }
 
 

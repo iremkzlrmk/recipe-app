@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             public void onActivityResult(ActivityResult result) {}
         });
 
-        Button btnGoRecipes = findViewById(R.id.btnGoRecipes);
+        Button btnGoRecipes = findViewById(R.id.btnGoMyRecipes);
         btnGoRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

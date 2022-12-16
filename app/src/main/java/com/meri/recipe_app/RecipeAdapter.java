@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,10 +43,10 @@ public class RecipeAdapter extends BaseAdapter {
         View rowView;
         rowView = inflater.inflate(R.layout.row,null);
         TextView txtItemName = rowView.findViewById(R.id.txtItemName);
-        ImageView imgRecipe = rowView.findViewById(R.id.imgRecipe);
+        ImageView imgRecipe = rowView.findViewById(R.id.imgItem);
 
         txtItemName.setText(recipe.getName());
-        imgRecipe.setImageResource(R.drawable.ic_launcher_foreground);
+        imgRecipe.setImageBitmap(recipe.getImage());
 
         return rowView;
 

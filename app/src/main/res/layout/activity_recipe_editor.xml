@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".RecipeEditorActivity">
 
+    <ImageView
+        android:id="@+id/imgRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtRecipeMakingOf"
+        app:layout_constraintEnd_toStartOf="@+id/txtRecipeName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@tools:sample/avatars[5]" />
+
     <EditText
         android:id="@+id/txtRecipeName"
         android:layout_width="wrap_content"
@@ -13,8 +25,8 @@
         android:ems="10"
         android:hint="recipe name"
         android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/imgRecipe"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -27,8 +39,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/btnAdd"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRecipeName" />
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipeName"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -37,5 +51,7 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

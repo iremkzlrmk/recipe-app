@@ -6,15 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".RecipeDisplayActivity">
 
+    <ImageView
+        android:id="@+id/imgDisplayRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/txtDisplayRecipeName"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="179dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="40dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/txtDisplayRecipeMakingOf"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imgDisplayRecipe"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.513" />
 
     <TextView
         android:id="@+id/txtDisplayRecipeMakingOf"
@@ -24,13 +34,15 @@
         app:layout_constraintBottom_toTopOf="@+id/btnDisplayBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDisplayRecipeName" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDisplayRecipe" />
 
     <Button
         android:id="@+id/btnDisplayBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
