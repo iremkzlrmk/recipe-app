@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,12 +26,16 @@ public class RecipeListActivity extends AppCompatActivity {
 
     static ArrayList<Recipe> recipes = new ArrayList<>();
 
+    RecipeDatabase db;
     ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
+
+        db = Room.databaseBuilder(RecipeListActivity.this,
+                RecipeDatabase.class,"recipe-database").build();
 
         listView = findViewById(R.id.lvRecipe);
         RecipeAdapter recipeAdapter = new RecipeAdapter(this, recipes);
@@ -45,6 +50,13 @@ public class RecipeListActivity extends AppCompatActivity {
                     recipe.setName(data.getCharSequenceExtra("recipeName").toString());
                     recipe.setMakingOf(data.getCharSequenceExtra("recipeMakingOf").toString());
                     recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.recipeDAO().insert(recipe);
+                        }
+                    });
+                    t.start();
                     recipes.add(recipe);
                     ((RecipeAdapter) listView.getAdapter()).notifyDataSetChanged();
                 }

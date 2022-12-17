@@ -45,8 +45,5 @@ public class RecipeDisplayActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 }
