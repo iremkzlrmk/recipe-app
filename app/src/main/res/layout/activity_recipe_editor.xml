@@ -6,52 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".RecipeEditorActivity">
 
+    <Button
+        android:id="@+id/btnRecipeEditorActivityFragmentToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ingredients"
+        app:layout_constraintBottom_toTopOf="@+id/containerRecipeEditorActivity"
+        app:layout_constraintEnd_toEndOf="@+id/txtRecipeEditorActivityName"
+        app:layout_constraintStart_toStartOf="@+id/txtRecipeEditorActivityName"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipeEditorActivityName" />
+
     <ImageView
         android:id="@+id/imgRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtRecipeMakingOf"
-        app:layout_constraintEnd_toStartOf="@+id/txtRecipeName"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars[5]" />
 
     <EditText
-        android:id="@+id/txtRecipeName"
+        android:id="@+id/txtRecipeEditorActivityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:ems="10"
         android:hint="recipe name"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/imgRecipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtRecipeMakingOf"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="making of"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRecipeName"
-        app:layout_constraintVertical_bias="1.0" />
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@id/imgRecipe"
+        app:layout_constraintStart_toEndOf="@id/imgRecipe"
+        app:layout_constraintTop_toTopOf="@id/imgRecipe" />
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnRecipeEditorActivityAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/btnRecipeEditorActivityBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/containerRecipeEditorActivity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnRecipeEditorActivityAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgRecipe">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
