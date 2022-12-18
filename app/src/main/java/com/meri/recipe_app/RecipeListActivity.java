@@ -41,15 +41,24 @@ public class RecipeListActivity extends AppCompatActivity {
         RecipeAdapter recipeAdapter = new RecipeAdapter(this, recipes);
         listView.setAdapter(recipeAdapter);
 
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                recipes.addAll(db.recipeDAO().getAllRecipes());
+            }
+        });
+
         final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
                     Recipe recipe = new Recipe();
-                    recipe.setName(data.getCharSequenceExtra("recipeName").toString());
-                    recipe.setMakingOf(data.getCharSequenceExtra("recipeMakingOf").toString());
+
+                    recipe.setName(data.getStringExtra("recipeName"));
+                    recipe.setMakingOf(data.getStringExtra("recipeMakingOf"));
                     recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
+
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -57,6 +66,7 @@ public class RecipeListActivity extends AppCompatActivity {
                         }
                     });
                     t.start();
+
                     recipes.add(recipe);
                     ((RecipeAdapter) listView.getAdapter()).notifyDataSetChanged();
                 }
