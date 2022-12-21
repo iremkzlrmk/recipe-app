@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RecipeAdapter extends BaseAdapter {
@@ -16,8 +17,8 @@ public class RecipeAdapter extends BaseAdapter {
     List<Recipe> recipes;
     private LayoutInflater inflater;
 
-    public RecipeAdapter(Activity activity, List<Recipe> posts){
-        this.recipes = posts;
+    public RecipeAdapter(Activity activity, List<Recipe> recipes){
+        this.recipes = recipes;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

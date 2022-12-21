@@ -11,8 +11,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class RecipeListActivity extends AppCompatActivity {
 
@@ -28,6 +32,15 @@ public class RecipeListActivity extends AppCompatActivity {
 
     RecipeDatabase db;
     ListView listView;
+
+    public boolean containsByRecipeId(ArrayList<Recipe> recipeList, int recipeId){
+        for (Recipe recipe : recipeList){
+            if (recipe.getRecipeId() == recipeId){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +50,10 @@ public class RecipeListActivity extends AppCompatActivity {
         db = Room.databaseBuilder(RecipeListActivity.this,
                 RecipeDatabase.class,"recipe-database").build();
 
-        listView = findViewById(R.id.lvRecipe);
+        refreshRecipes();
+
         RecipeAdapter recipeAdapter = new RecipeAdapter(this, recipes);
+        listView = findViewById(R.id.lvRecipe);
         listView.setAdapter(recipeAdapter);
 
         final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -50,18 +65,15 @@ public class RecipeListActivity extends AppCompatActivity {
                     recipe.setName(data.getCharSequenceExtra("recipeName").toString());
                     recipe.setMakingOf(data.getCharSequenceExtra("recipeMakingOf").toString());
                     recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            db.recipeDAO().insert(recipe);
-                        }
-                    });
-                    t.start();
-                    recipes.add(recipe);
+                    RecipeInserter ri = new RecipeInserter();
+                    Recipe[] rs = new Recipe[1];
+                    rs[0] = recipe;
+                    ri.execute(rs);
                     ((RecipeAdapter) listView.getAdapter()).notifyDataSetChanged();
                 }
             }
         });
+
 
         Button btnAddRecipe = findViewById(R.id.btnAddRecipe);
         btnAddRecipe.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +83,7 @@ public class RecipeListActivity extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
+
 
         Button btnBack = findViewById(R.id.btnBackRecipes);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +109,44 @@ public class RecipeListActivity extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
+    }
 
+
+    private void refreshRecipes() {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Recipe> tempRecipes = db.recipeDAO().getAllRecipes();
+                for (Recipe recipe : tempRecipes){
+                    if (!containsByRecipeId(recipes, recipe.getRecipeId())){
+                        recipes.add(recipe);
+                    }
+                }
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    class RecipeInserter extends AsyncTask<Recipe,Void,List<Recipe>>{
+
+        @Override
+        protected List<Recipe> doInBackground(Recipe... recipes) {
+            db.recipeDAO().insert(recipes[0]);
+            return db.recipeDAO().getAllRecipes();
+        }
+
+        @Override
+        protected void onPostExecute(List<Recipe> recipez) {
+            super.onPostExecute(recipez);
+            recipes.clear();
+            recipes.addAll(recipez);
+            ((RecipeAdapter) listView.getAdapter()).notifyDataSetChanged();
+        }
     }
 }
