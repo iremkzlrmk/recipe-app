@@ -2,7 +2,9 @@ package com.meri.recipe_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -19,13 +21,26 @@ public class ChefRecipeListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_recipe_list);
 
-        recipes.add(new ChefRecipe());
-        recipes.add(new ChefRecipe());
-        recipes.add(new ChefRecipe());
-        recipes.add(new ChefRecipe());
+        for (int i=0; i < 5; i++){
+            ChefRecipe recipe = new ChefRecipe();
+
+            recipe.setRecipeId(i);
+            recipe.setName("name" + i);
+
+            Bitmap image = Converters.DrawableToBitmap(getDrawable(R.drawable.ic_launcher_foreground));
+            recipe.setImage(image);
+
+            ArrayList<String> list = new ArrayList<>();
+            list.add("step" + i);
+
+            recipe.setMakingOf(list);
+            recipe.setIngredients(list);
+
+            recipes.add(recipe);
+        }
 
         ChefRecipeAdapter chefRecipeAdapter = new ChefRecipeAdapter(this, recipes);
-        listView = findViewById(R.id.lvRecipe);
+        listView = findViewById(R.id.listChefRecipe);
         listView.setAdapter(chefRecipeAdapter);
 
         Button btnBack = findViewById(R.id.btnBackRecipes);

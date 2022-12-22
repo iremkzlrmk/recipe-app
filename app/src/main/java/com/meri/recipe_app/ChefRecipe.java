@@ -2,6 +2,8 @@ package com.meri.recipe_app;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 public class ChefRecipe {
 
     private int recipeId;
@@ -10,9 +12,9 @@ public class ChefRecipe {
 
     private String name;
 
-    private String ingredients;
+    private ArrayList<String> ingredients;
 
-    private String makingOf;
+    private ArrayList<String> makingOf;
 
     public int getRecipeId() {
         return recipeId;
@@ -38,19 +40,19 @@ public class ChefRecipe {
         this.name = name;
     }
 
-    public String getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public String getMakingOf() {
+    public ArrayList<String> getMakingOf() {
         return makingOf;
     }
 
-    public void setMakingOf(String makingOf) {
+    public void setMakingOf(ArrayList<String> makingOf) {
         this.makingOf = makingOf;
     }
 
