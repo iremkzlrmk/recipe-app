@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,14 +20,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class RecipeEditorActivity extends AppCompatActivity {
+public class RecipeEditorActivity extends AppCompatActivity implements MakingOfFragment.OnMakingOfEditedListener, IngredientFragment.OnIngredientsEditedListener {
 
+    boolean isIngredientFragment = true;
+
+    String recipeMakingOf;
+    String recipeIngredients;
+
+    EditText recipeName;
     ImageView recipeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_editor);
 
@@ -41,35 +46,79 @@ public class RecipeEditorActivity extends AppCompatActivity {
             }
         });
 
+        //-------------------------------------------
 
-        EditText recipeName = (EditText) findViewById(R.id.txtRecipeName);
-        EditText recipeMaking = (EditText) findViewById(R.id.txtRecipeMakingOf);
+        recipeName = (EditText) findViewById(R.id.txtRecipeEditorActivityName);
+
         recipeImage = findViewById(R.id.imgRecipe);
         recipeImage.setImageResource(R.drawable.ic_launcher_foreground);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.containerRecipeEditorActivity, new IngredientFragment());
+        ft.commit();
+
+        //-------------------------------------------
 
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                ActivityResultLauncher<Intent> launcher = null;
                 launcher.launch(intent);
             }
         });
 
-        Button btnAdd = findViewById(R.id.btnAdd);
+        Button btnToggle = findViewById(R.id.btnRecipeEditorActivityFragmentToggle);
+        btnToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                if ( isIngredientFragment ){
+                    ft.replace(R.id.containerRecipeEditorActivity, new MakingOfFragment());
+                    btnToggle.setText("making");
+                }
+                else{
+                    ft.replace(R.id.containerRecipeEditorActivity, new IngredientFragment());
+                    btnToggle.setText("ingredients");
+                }
+                ft.commit();
+
+                isIngredientFragment = !isIngredientFragment;
+            }
+        });
+
+        Button btnAdd = findViewById(R.id.btnRecipeEditorActivityAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putCharSequence("recipeName",recipeName.getText());
-                bundle.putCharSequence("recipeMakingOf",recipeMaking.getText());
+                bundle.putString("recipeName",recipeName.getText().toString());
+                bundle.putString("recipeMakingOf",recipeMakingOf);
                 bundle.putParcelable("bitmap",((BitmapDrawable)recipeImage.getDrawable()).getBitmap());
                 intent.putExtras(bundle);
+
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
 
+        Button btnBack = findViewById(R.id.btnRecipeEditorActivityBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void getEditedIngredients(String ingredients) {
+        recipeIngredients = ingredients;
+    }
+
+    @Override
+    public void getEditedMakingOf(String makingOf) {
+        recipeMakingOf = makingOf;
     }
 }

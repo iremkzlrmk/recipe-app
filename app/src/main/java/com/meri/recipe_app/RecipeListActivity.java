@@ -62,13 +62,16 @@ public class RecipeListActivity extends AppCompatActivity {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
                     Recipe recipe = new Recipe();
-                    recipe.setName(data.getCharSequenceExtra("recipeName").toString());
-                    recipe.setMakingOf(data.getCharSequenceExtra("recipeMakingOf").toString());
+
+                    recipe.setName(data.getStringExtra("recipeName"));
+                    recipe.setMakingOf(data.getStringExtra("recipeMakingOf"));
                     recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
+
                     RecipeInserter ri = new RecipeInserter();
                     Recipe[] rs = new Recipe[1];
                     rs[0] = recipe;
                     ri.execute(rs);
+
                     ((RecipeAdapter) listView.getAdapter()).notifyDataSetChanged();
                 }
             }
