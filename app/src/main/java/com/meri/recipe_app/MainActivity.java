@@ -28,11 +28,20 @@ public class MainActivity extends AppCompatActivity {
             public void onActivityResult(ActivityResult result) {}
         });
 
-        Button btnGoRecipes = findViewById(R.id.btnGoMyRecipes);
-        btnGoRecipes.setOnClickListener(new View.OnClickListener() {
+        Button btnGoMyRecipes = findViewById(R.id.btnGoMyRecipes);
+        btnGoMyRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RecipeListActivity.class);
+                launcher.launch(intent);
+            }
+        });
+
+        Button btnGoChefRecipes = findViewById(R.id.btnGoRecipes);
+        btnGoChefRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChefRecipeListActivity.class);
                 launcher.launch(intent);
             }
         });
