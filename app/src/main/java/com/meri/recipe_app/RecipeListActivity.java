@@ -64,7 +64,8 @@ public class RecipeListActivity extends AppCompatActivity {
                     Recipe recipe = new Recipe();
 
                     recipe.setName(data.getStringExtra("recipeName"));
-                    recipe.setMakingOf(data.getStringExtra("recipeMakingOf"));
+                    recipe.setMakingOf(data.getStringArrayListExtra("recipeMakingOf").get(0));
+                    recipe.setIngredients(data.getStringArrayListExtra("recipeIngredients").get(0));
                     recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
 
                     RecipeInserter ri = new RecipeInserter();

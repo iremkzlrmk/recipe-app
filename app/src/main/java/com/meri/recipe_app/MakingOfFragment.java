@@ -2,20 +2,35 @@ package com.meri.recipe_app;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 public class MakingOfFragment extends Fragment {
 
+    ListView listViewMakingOf;
+
+    public MakingOfFragment(){}
+    public static MakingOfFragment newInstance(ArrayList<String> makingOf){
+        MakingOfFragment makingOfFragment = new MakingOfFragment();
+
+        Bundle args = new Bundle();
+        args.putStringArrayList("makingOf", makingOf);
+        makingOfFragment.setArguments(args);
+
+        return makingOfFragment;
+    }
+
     public interface OnMakingOfEditedListener {
-        void getEditedMakingOf(String makingOf);
+        void addMakingOf(String makingOf);
     }
     private OnMakingOfEditedListener mListener;
 
@@ -34,15 +49,21 @@ public class MakingOfFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_making_of, container, false);
 
         EditText txtMakingOf = (EditText) view.findViewById(R.id.txtMakingOfFragment);
-        txtMakingOf.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        Button btnAddMakingOf = (Button) view.findViewById(R.id.btnAddMakingOfFragment);
+
+        ArrayList<String> list = getArguments().getStringArrayList("makingOf");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_making_of, list);
+        listViewMakingOf = (ListView) view.findViewById(R.id.listMakingOfFragment);
+        listViewMakingOf.setAdapter(adapter);
+
+        btnAddMakingOf.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                boolean handled = false;
-                if (i == EditorInfo.IME_ACTION_DONE) {
-                    mListener.getEditedMakingOf(txtMakingOf.getText().toString());
-                    handled = true;
-                }
-                return handled;
+            public void onClick(View view) {
+                String makingOf = txtMakingOf.getText().toString();
+
+                adapter.notifyDataSetChanged();
+
+                mListener.addMakingOf(makingOf);
             }
         });
 

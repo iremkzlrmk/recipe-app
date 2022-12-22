@@ -20,12 +20,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 public class RecipeEditorActivity extends AppCompatActivity implements MakingOfFragment.OnMakingOfEditedListener, IngredientFragment.OnIngredientsEditedListener {
 
     boolean isIngredientFragment = true;
 
-    String recipeMakingOf;
-    String recipeIngredients;
+    public ArrayList<String> editedRecipeMakingOf = new ArrayList<>();
+    public ArrayList<String> editedRecipeIngredients = new ArrayList<>();
 
     EditText recipeName;
     ImageView recipeImage;
@@ -54,7 +56,7 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
         recipeImage.setImageResource(R.drawable.ic_launcher_foreground);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.containerRecipeEditorActivity, new IngredientFragment());
+        ft.replace(R.id.containerRecipeEditorActivity, IngredientFragment.newInstance(editedRecipeIngredients));
         ft.commit();
 
         //-------------------------------------------
@@ -74,11 +76,11 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
 
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 if ( isIngredientFragment ){
-                    ft.replace(R.id.containerRecipeEditorActivity, new MakingOfFragment());
+                    ft.replace(R.id.containerRecipeEditorActivity, MakingOfFragment.newInstance(editedRecipeMakingOf));
                     btnToggle.setText("making");
                 }
                 else{
-                    ft.replace(R.id.containerRecipeEditorActivity, new IngredientFragment());
+                    ft.replace(R.id.containerRecipeEditorActivity, IngredientFragment.newInstance(editedRecipeIngredients));
                     btnToggle.setText("ingredients");
                 }
                 ft.commit();
@@ -93,11 +95,13 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
             public void onClick(View view) {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putString("recipeName",recipeName.getText().toString());
-                bundle.putString("recipeMakingOf",recipeMakingOf);
-                bundle.putParcelable("bitmap",((BitmapDrawable)recipeImage.getDrawable()).getBitmap());
-                intent.putExtras(bundle);
 
+                bundle.putString("recipeName",recipeName.getText().toString());
+                bundle.putStringArrayList("recipeMakingOf",editedRecipeMakingOf);
+                bundle.putStringArrayList("recipeIngredients", editedRecipeIngredients);
+                bundle.putParcelable("bitmap",((BitmapDrawable)recipeImage.getDrawable()).getBitmap());
+
+                intent.putExtras(bundle);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -113,12 +117,12 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
     }
 
     @Override
-    public void getEditedIngredients(String ingredients) {
-        recipeIngredients = ingredients;
+    public void addIngredient(String ingredients) {
+        editedRecipeIngredients.add(ingredients);
     }
 
     @Override
-    public void getEditedMakingOf(String makingOf) {
-        recipeMakingOf = makingOf;
+    public void addMakingOf(String makingOf) {
+        editedRecipeMakingOf.add(makingOf);
     }
 }
