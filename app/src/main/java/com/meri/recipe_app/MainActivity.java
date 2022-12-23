@@ -6,15 +6,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.meri.recipe_app.chef_recipe.ChefRecipeListActivity;
+import com.meri.recipe_app.recipe.RecipeListActivity;
 
 public class MainActivity extends AppCompatActivity {
 

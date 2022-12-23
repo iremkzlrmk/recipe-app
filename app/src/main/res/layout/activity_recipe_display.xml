@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeDisplayActivity">
+    tools:context=".recipe.RecipeDisplayActivity">
 
     <ImageView
-        android:id="@+id/imgDisplayRecipe"
+        android:id="@+id/imgRecipeDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
@@ -17,25 +17,18 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/txtDisplayRecipeName"
-        android:layout_width="179dp"
-        android:layout_height="19dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/txtDisplayRecipeMakingOf"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgDisplayRecipe"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513" />
-
-    <TextView
-        android:id="@+id/txtDisplayRecipeMakingOf"
+        android:id="@+id/txtNameRecipeDisplay"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/btnDisplayBack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgRecipeDisplay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDisplayRecipe" />
+        app:layout_constraintStart_toEndOf="@+id/imgRecipeDisplay"
+        app:layout_constraintTop_toTopOf="@+id/imgRecipeDisplay" />
 
     <Button
         android:id="@+id/btnDisplayBack"
@@ -46,6 +39,15 @@
         android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/listIngredientsRecipeDisplay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnDisplayBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgRecipeDisplay" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

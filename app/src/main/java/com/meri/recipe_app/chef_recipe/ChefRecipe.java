@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.chef_recipe;
 
 import android.graphics.Bitmap;
 

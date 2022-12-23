@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.recipe;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
+
+import com.meri.recipe_app.R;
 
 import java.util.ArrayList;
 
@@ -52,10 +54,9 @@ public class IngredientFragment extends Fragment {
         Button btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredientFragment);
 
         ArrayList<String> list = getArguments().getStringArrayList("ingredients");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_making_of, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_array_item, list);
         listViewIngredient = (ListView) view.findViewById(R.id.listIngredientFragment);
         listViewIngredient.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override

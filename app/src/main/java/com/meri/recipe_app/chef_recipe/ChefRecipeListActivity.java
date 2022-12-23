@@ -1,13 +1,15 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.chef_recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.meri.recipe_app.utils.Converters;
+import com.meri.recipe_app.R;
 
 import java.util.ArrayList;
 

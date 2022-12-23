@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,8 +10,22 @@ import android.util.Base64;
 import androidx.room.TypeConverter;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Converters {
+
+    @TypeConverter
+    public static String StringListToString(ArrayList<String> list){
+        if (list == null) return null;
+        return String.join("; ", list);
+    }
+
+    @TypeConverter
+    public static ArrayList<String> StringToStringList(String string){
+        if (string == null) return null;
+        return new ArrayList<String>(Arrays.asList(string.split("; ")));
+    }
 
     @TypeConverter
     public static byte[] BitmapToString(Bitmap bitmap){

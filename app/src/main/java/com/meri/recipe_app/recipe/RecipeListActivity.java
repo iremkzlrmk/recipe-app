@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.recipe;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -16,6 +16,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.meri.recipe_app.R;
+import com.meri.recipe_app.database.RecipeDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +61,8 @@ public class RecipeListActivity extends AppCompatActivity {
                     Recipe recipe = new Recipe();
 
                     recipe.setName(data.getStringExtra("recipeName"));
-                    recipe.setMakingOf(data.getStringArrayListExtra("recipeMakingOf").get(0));
-                    recipe.setIngredients(data.getStringArrayListExtra("recipeIngredients").get(0));
+                    recipe.setMakingOf(data.getStringArrayListExtra("recipeMakingOf"));
+                    recipe.setIngredients(data.getStringArrayListExtra("recipeIngredients"));
                     recipe.setImage((Bitmap) data.getParcelableExtra("bitmap"));
 
                     RecipeInserter ri = new RecipeInserter();
@@ -97,13 +100,14 @@ public class RecipeListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(RecipeListActivity.this, RecipeDisplayActivity.class);
                 Bundle bundle = new Bundle();
+
                 Recipe recipe = recipes.get(i);
-                bundle.putCharSequence("recipeName",recipe.getName());
-                bundle.putCharSequence("recipeMakingOf",recipe.getMakingOf());
-                bundle.putCharSequence("recipeIngredients",recipe.getIngredients());
+                bundle.putString("recipeName",recipe.getName());
+                bundle.putStringArrayList("recipeMakingOf",recipe.getMakingOf());
+                bundle.putStringArrayList("recipeIngredients",recipe.getIngredients());
                 bundle.putParcelable("recipeImage", recipe.getImage());
                 intent.putExtras(bundle);
-//                startActivity(intent);
+
                 launcher.launch(intent);
             }
         });

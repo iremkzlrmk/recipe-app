@@ -13,28 +13,28 @@
         android:theme="@style/Theme.Recipe_app"
         tools:targetApi="31">
         <activity
-            android:name=".ChefRecipeListActivity"
+            android:name=".chef_recipe.ChefRecipeListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecipeListActivity"
+            android:name=".recipe.RecipeListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecipeDisplayActivity"
+            android:name=".recipe.RecipeDisplayActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecipeEditorActivity"
+            android:name=".recipe.RecipeEditorActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.recipe;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,18 +9,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.meri.recipe_app.R;
+
 import java.util.List;
 
-public class ChefRecipeAdapter extends BaseAdapter {
+public class RecipeAdapter extends BaseAdapter {
 
-    List<ChefRecipe> recipes;
+    List<Recipe> recipes;
     private LayoutInflater inflater;
 
-    public ChefRecipeAdapter(Activity activity, List<ChefRecipe> recipes){
+    public RecipeAdapter(Activity activity, List<Recipe> recipes){
         this.recipes = recipes;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
 
     @Override
     public int getCount() {
@@ -40,7 +41,7 @@ public class ChefRecipeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
-        ChefRecipe recipe = recipes.get(position);
+        Recipe recipe = recipes.get(position);
         View rowView;
         rowView = inflater.inflate(R.layout.row,null);
         TextView txtItemName = rowView.findViewById(R.id.txtItemName);

@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.recipe;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
+
+import com.meri.recipe_app.R;
 
 import java.util.ArrayList;
 
@@ -52,7 +54,7 @@ public class MakingOfFragment extends Fragment {
         Button btnAddMakingOf = (Button) view.findViewById(R.id.btnAddMakingOfFragment);
 
         ArrayList<String> list = getArguments().getStringArrayList("makingOf");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_making_of, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_array_item, list);
         listViewMakingOf = (ListView) view.findViewById(R.id.listMakingOfFragment);
         listViewMakingOf.setAdapter(adapter);
 

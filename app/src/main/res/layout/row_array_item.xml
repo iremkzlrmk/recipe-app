@@ -4,5 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:hint="making of row"
+    android:hint="simple array item"
+    android:textColor="#000000"
     android:textSize="24sp" />
