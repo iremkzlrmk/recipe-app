@@ -6,6 +6,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,13 +41,14 @@ public class RecipeListActivity extends AppCompatActivity {
         return false;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
         db = Room.databaseBuilder(RecipeListActivity.this,
-                RecipeDatabase.class,"recipe-database").build();
+                RecipeDatabase.class,"recipe-database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
         refreshRecipes();
 

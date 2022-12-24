@@ -2,18 +2,27 @@ package com.meri.recipe_app.chef_recipe;
 
 import android.graphics.Bitmap;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
+@Entity
 public class ChefRecipe {
 
+    @PrimaryKey(autoGenerate = true)
     private int recipeId;
 
     private Bitmap image;
 
+    @ColumnInfo(name = "recipe_name")
     private String name;
 
+    @ColumnInfo(name = "recipe_ingredients")
     private ArrayList<String> ingredients;
 
+    @ColumnInfo(name = "recipe_makingOf")
     private ArrayList<String> makingOf;
 
     public int getRecipeId() {
