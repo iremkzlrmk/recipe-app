@@ -43,5 +43,14 @@ public class MainActivity extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
+
+        Button btnShoppingList = findViewById(R.id.btnShoppingList);
+        btnShoppingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                launcher.launch(intent);
+            }
+        });
     }
 }

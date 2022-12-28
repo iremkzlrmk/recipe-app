@@ -3,6 +3,7 @@ package com.meri.recipe_app.recipe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,9 +15,10 @@ import android.widget.TextView;
 import com.meri.recipe_app.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDisplayActivity extends AppCompatActivity {
-
+    ArrayList<String> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +36,46 @@ public class RecipeDisplayActivity extends AppCompatActivity {
         txtRecipeName.setText(bundle.getString("recipeName"));
         imgRecipeImage.setImageBitmap(bundle.getParcelable("recipeImage"));
 
-        ArrayList<String> ingredients = bundle.getStringArrayList("recipeIngredients");
+        ingredients = bundle.getStringArrayList("recipeIngredients");
         if (ingredients == null) ingredients = new ArrayList<>();
         ArrayAdapter<String> adapterIngredients = new ArrayAdapter<String>(getApplicationContext(), R.layout.row_array_item, ingredients);
         lvIngredients.setAdapter(adapterIngredients);
 
         //-------------------------------------------
 
-        lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ArrayList<String> shoppingList = new ArrayList<>();
+
+        lvIngredients.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String ingredient = ingredients.get(i);
+
                 // TODO: add to shopping list
+                boolean inShoppingList = false;
+
+                // check if item in shopping list
+                for (String shoppingIngredient : shoppingList) {
+                    if (shoppingIngredient.compareTo(ingredient) == 0){
+                        inShoppingList = true;
+                        break;
+                    }
+                }
+
+                // remove if in shopping list
+                if (inShoppingList) {
+                    shoppingList.remove(ingredient);
+
+                    Log.d("cm", "removed from shopping list");
+                }
+                // add if not in shopping list
+                else {
+                    shoppingList.add(ingredient);
+
+                    Log.d("cm", "added to shopping list");
+                }
+
+                return true;
             }
         });
 
