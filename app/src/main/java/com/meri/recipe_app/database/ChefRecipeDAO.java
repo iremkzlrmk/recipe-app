@@ -18,6 +18,9 @@ public interface ChefRecipeDAO {
     List<ChefRecipe> getAllRecipes();
 
     @Insert
+    void insert(ChefRecipe recipe);
+
+    @Insert
     void insertAll(ArrayList<ChefRecipe> recipes);
 
     @Query("delete from chefrecipe")

@@ -35,26 +35,25 @@ public class ChefRecipeListActivity extends AppCompatActivity {
     }
 
 
-    public void addRecipe(){
+    public void addTestRecipes(){
         for (int i=0; i < 5; i++){
             ChefRecipe recipe = new ChefRecipe();
 
-//            recipe.setRecipeId(i);
-            recipe.setName("name" + i);
+            recipe.setRecipeId(i);
+            recipe.setName("chef recipe " + i);
 
             Bitmap image = Converters.DrawableToBitmap(getDrawable(R.drawable.ic_launcher_foreground));
             recipe.setImage(image);
 
             ArrayList<String> list = new ArrayList<>();
-            list.add("step" + i);
+            list.add("test " + i + "-1");
+            list.add("test " + i + "-2");
 
             recipe.setMakingOf(list);
             recipe.setIngredients(list);
 
-            recipes.add(recipe);
+            db.chefRecipeDAO().insert(recipe);
         }
-
-        db.chefRecipeDAO().insertAll(recipes);
     }
 
 
@@ -66,8 +65,9 @@ public class ChefRecipeListActivity extends AppCompatActivity {
         db = Room.databaseBuilder(ChefRecipeListActivity.this,
                 RecipeDatabase.class,"recipe-database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
-//        addRecipe();
-//        db.chefRecipeDAO().deleteAll();
+        addTestRecipes(); // run if you want to add test recipes to ChefRecipe table
+        // db.chefRecipeDAO().deleteAll(); // run if you want to delete all recipes in ChefRecipe table
+
 
         refreshRecipes();
 
