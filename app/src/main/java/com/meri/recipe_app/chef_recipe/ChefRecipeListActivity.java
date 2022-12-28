@@ -45,7 +45,7 @@ public class ChefRecipeListActivity extends AppCompatActivity {
 
             ChefRecipe recipe = new ChefRecipe();
 
-            recipe.setRecipeId(i);
+            // recipe.setRecipeId(i);
             recipe.setName("chef recipe " + i);
 
             Bitmap image = Converters.DrawableToBitmap(getDrawable(R.drawable.ic_launcher_foreground));

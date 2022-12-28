@@ -1,7 +1,9 @@
 package com.meri.recipe_app.recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +14,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.meri.recipe_app.MainActivity;
 import com.meri.recipe_app.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecipeDisplayActivity extends AppCompatActivity {
+
+    boolean isIngredientFragment = true;
+
     ArrayList<String> ingredients;
+    ArrayList<String> makingOfs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,8 @@ public class RecipeDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_display);
 
         TextView txtRecipeName = findViewById(R.id.txtNameRecipeDisplay);
-        ListView lvIngredients = findViewById(R.id.listRecipeMakingOf);
+//        ListView lvIngredients = findViewById(R.id.listRecipeMakingOf);
+
         ImageView imgRecipeImage = findViewById(R.id.imgRecipeDisplay);
 
         //-------------------------------------------
@@ -38,52 +45,39 @@ public class RecipeDisplayActivity extends AppCompatActivity {
 
         ingredients = bundle.getStringArrayList("recipeIngredients");
         if (ingredients == null) ingredients = new ArrayList<>();
+        makingOfs = bundle.getStringArrayList("recipeMakingOf");
+
         ArrayAdapter<String> adapterIngredients = new ArrayAdapter<String>(getApplicationContext(), R.layout.row_array_item, ingredients);
-        lvIngredients.setAdapter(adapterIngredients);
+//        lvIngredients.setAdapter(adapterIngredients);
 
         //-------------------------------------------
 
-        ArrayList<String> shoppingList = new ArrayList<>();
-
-        lvIngredients.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String ingredient = ingredients.get(i);
-
-                // TODO: add to shopping list
-                boolean inShoppingList = false;
-
-                // check if item in shopping list
-                for (String shoppingIngredient : shoppingList) {
-                    if (shoppingIngredient.compareTo(ingredient) == 0){
-                        inShoppingList = true;
-                        break;
-                    }
-                }
-
-                // remove if in shopping list
-                if (inShoppingList) {
-                    shoppingList.remove(ingredient);
-
-                    Log.d("cm", "removed from shopping list");
-                }
-                // add if not in shopping list
-                else {
-                    shoppingList.add(ingredient);
-
-                    Log.d("cm", "added to shopping list");
-                }
-
-                return true;
-            }
-        });
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.containerRecipeDisplayActivity, IngredientDisplayFragment.newInstance(ingredients));
+        ft.commit();
 
         Button buttonStart = findViewById(R.id.btnRecipeDisplayMakingof);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: decide if new activity (if so launcher), or fragment (implementing interfaces)
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                if ( isIngredientFragment ){
+                    ft.replace(R.id.containerRecipeDisplayActivity, MakingOfDisplayFragment.newInstance(makingOfs));
+                    buttonStart.setText("done");
+
+                }
+                else{
+//                    ft.replace(R.id.containerRecipeDisplayActivity, IngredientDisplayFragment.newInstance(ingredients));
+//                    buttonStart.setText("done");
+                    Intent intent = new Intent(RecipeDisplayActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                ft.commit();
+
+                isIngredientFragment = !isIngredientFragment;
+
             }
         });
 

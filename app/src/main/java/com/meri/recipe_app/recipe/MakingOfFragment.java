@@ -48,7 +48,7 @@ public class MakingOfFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_making_of, container, false);
+        View view = inflater.inflate(R.layout.fragment_making_of_editor, container, false);
 
         EditText txtMakingOf = (EditText) view.findViewById(R.id.txtMakingOfFragment);
         Button btnAddMakingOf = (Button) view.findViewById(R.id.btnAddMakingOfFragment);
@@ -66,6 +66,8 @@ public class MakingOfFragment extends Fragment {
                 adapter.notifyDataSetChanged();
 
                 mListener.addMakingOf(makingOf);
+
+                txtMakingOf.setText("");
             }
         });
 
