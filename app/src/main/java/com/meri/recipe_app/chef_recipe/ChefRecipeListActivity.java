@@ -35,8 +35,14 @@ public class ChefRecipeListActivity extends AppCompatActivity {
     }
 
 
-    public void addTestRecipes(){
-        for (int i=0; i < 5; i++){
+    public void addTestRecipes(int count){
+        // adds test recipes if first x recipe id not found
+
+        List<ChefRecipe> tempRecipes = db.chefRecipeDAO().getAllRecipes();
+        int listSize = tempRecipes.size();
+
+        for (int i=listSize; i < count; i++){
+
             ChefRecipe recipe = new ChefRecipe();
 
             recipe.setRecipeId(i);
@@ -65,9 +71,7 @@ public class ChefRecipeListActivity extends AppCompatActivity {
         db = Room.databaseBuilder(ChefRecipeListActivity.this,
                 RecipeDatabase.class,"recipe-database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
-        addTestRecipes(); // run if you want to add test recipes to ChefRecipe table
-        // db.chefRecipeDAO().deleteAll(); // run if you want to delete all recipes in ChefRecipe table
-
+        addTestRecipes(5);
 
         refreshRecipes();
 
