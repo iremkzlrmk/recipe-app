@@ -24,7 +24,7 @@ public class RecipeDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_display);
 
         TextView txtRecipeName = findViewById(R.id.txtNameRecipeDisplay);
-        ListView lvIngredients = findViewById(R.id.listIngredientsRecipeDisplay);
+        ListView lvIngredients = findViewById(R.id.listRecipeMakingOf);
         ImageView imgRecipeImage = findViewById(R.id.imgRecipeDisplay);
 
         //-------------------------------------------
@@ -45,6 +45,14 @@ public class RecipeDisplayActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // TODO: add to shopping list
+            }
+        });
+
+        Button buttonStart = findViewById(R.id.btnRecipeDisplayMakingof);
+        buttonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: decide if new activity (if so launcher), or fragment (implementing interfaces)
             }
         });
 
