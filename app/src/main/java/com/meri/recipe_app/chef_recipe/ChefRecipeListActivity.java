@@ -3,18 +3,23 @@ package com.meri.recipe_app.chef_recipe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.meri.recipe_app.database.RecipeDatabase;
 import com.meri.recipe_app.recipe.Recipe;
+import com.meri.recipe_app.recipe.RecipeDisplayActivity;
 import com.meri.recipe_app.recipe.RecipeListActivity;
 import com.meri.recipe_app.utils.Converters;
 import com.meri.recipe_app.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,34 +39,6 @@ public class ChefRecipeListActivity extends AppCompatActivity {
         return false;
     }
 
-
-    public void addTestRecipes(int count){
-        // adds test recipes if first x recipe id not found
-
-        List<ChefRecipe> tempRecipes = db.chefRecipeDAO().getAllRecipes();
-        int listSize = tempRecipes.size();
-
-        for (int i=listSize; i < count; i++){
-
-            ChefRecipe recipe = new ChefRecipe();
-
-            // recipe.setRecipeId(i);
-            recipe.setName("chef recipe " + i);
-
-            Bitmap image = Converters.DrawableToBitmap(getDrawable(R.drawable.ic_launcher_foreground));
-            recipe.setImage(image);
-
-            ArrayList<String> list = new ArrayList<>();
-            list.add("test " + i + "-1");
-            list.add("test " + i + "-2");
-
-            recipe.setMakingOf(list);
-            recipe.setIngredients(list);
-
-            db.chefRecipeDAO().insert(recipe);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +46,6 @@ public class ChefRecipeListActivity extends AppCompatActivity {
 
         db = Room.databaseBuilder(ChefRecipeListActivity.this,
                 RecipeDatabase.class,"recipe-database5").allowMainThreadQueries().build();
-
-        addTestRecipes(5);
 
         refreshRecipes();
 
@@ -83,6 +58,23 @@ public class ChefRecipeListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(ChefRecipeListActivity.this, ChefRecipeDisplayActivity.class);
+                Bundle bundle = new Bundle();
+
+                ChefRecipe recipe = recipes.get(i);
+                bundle.putString("recipeName",recipe.getName());
+                bundle.putStringArrayList("recipeMakingOf",recipe.getMakingOf());
+                bundle.putStringArrayList("recipeIngredients",recipe.getIngredients());
+                bundle.putParcelable("recipeImage", recipe.getImage());
+                intent.putExtras(bundle);
+
+                startActivity(intent);
             }
         });
     }

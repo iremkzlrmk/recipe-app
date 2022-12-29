@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.meri.recipe_app.chef_recipe.ChefRecipeListActivity;
 import com.meri.recipe_app.recipe.RecipeListActivity;
+import com.meri.recipe_app.utils.Admin;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
                 launcher.launch(intent);
+            }
+        });
+        btnShoppingList.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Admin.class);
+                launcher.launch(intent);
+                return true;
             }
         });
     }
