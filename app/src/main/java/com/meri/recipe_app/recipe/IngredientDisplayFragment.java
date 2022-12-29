@@ -35,6 +35,7 @@ public class IngredientDisplayFragment extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ingredient_display, container, false);
@@ -43,7 +44,6 @@ public class IngredientDisplayFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_array_item, list);
         listViewIngredient = (ListView) view.findViewById(R.id.listIngredientFragmentDisplay);
         listViewIngredient.setAdapter(adapter);
-
 
         ArrayList<String> shoppingList = new ArrayList<>();
 
@@ -81,7 +81,9 @@ public class IngredientDisplayFragment extends Fragment {
             }
         });
 
-
         return view;
     }
+
+
+
 }

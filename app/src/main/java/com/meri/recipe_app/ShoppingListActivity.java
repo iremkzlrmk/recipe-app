@@ -13,6 +13,7 @@ import com.meri.recipe_app.chef_recipe.ChefRecipeAdapter;
 import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity {
+
     ArrayList<String> ingredients;
 
     @Override

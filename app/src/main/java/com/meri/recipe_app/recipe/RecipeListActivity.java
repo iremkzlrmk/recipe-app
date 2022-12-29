@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.meri.recipe_app.R;
+import com.meri.recipe_app.ShoppingListIngredient;
 import com.meri.recipe_app.database.RecipeDatabase;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class RecipeListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_list);
 
         db = Room.databaseBuilder(RecipeListActivity.this,
-                RecipeDatabase.class,"recipe-database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                RecipeDatabase.class,"recipe-database5").allowMainThreadQueries().build();
 
         refreshRecipes();
 
@@ -143,6 +144,7 @@ public class RecipeListActivity extends AppCompatActivity {
         @Override
         protected List<Recipe> doInBackground(Recipe... recipes) {
             db.recipeDAO().insert(recipes[0]);
+            db.shoppingListIngredientDAO().insert(new ShoppingListIngredient());
             return db.recipeDAO().getAllRecipes();
         }
 

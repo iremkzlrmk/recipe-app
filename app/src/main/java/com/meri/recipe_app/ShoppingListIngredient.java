@@ -5,16 +5,13 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Ingredient {
+public class ShoppingListIngredient {
 
     @PrimaryKey(autoGenerate = true)
     private int ingredientId;
 
     @ColumnInfo(name = "ingredient_name")
     private String ingredientName;
-
-    //TODO: should be there amount???   **Nope..
-
 
     public int getIngredientId() {
         return ingredientId;

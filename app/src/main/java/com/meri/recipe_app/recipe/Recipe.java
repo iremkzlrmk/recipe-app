@@ -1,7 +1,6 @@
 package com.meri.recipe_app.recipe;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

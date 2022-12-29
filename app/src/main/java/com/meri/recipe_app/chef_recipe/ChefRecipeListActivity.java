@@ -68,7 +68,7 @@ public class ChefRecipeListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chef_recipe_list);
 
         db = Room.databaseBuilder(ChefRecipeListActivity.this,
-                RecipeDatabase.class,"recipe-database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                RecipeDatabase.class,"recipe-database5").allowMainThreadQueries().build();
 
         addTestRecipes(5);
 
