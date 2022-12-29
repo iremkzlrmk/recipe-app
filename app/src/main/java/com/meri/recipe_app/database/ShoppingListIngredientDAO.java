@@ -25,7 +25,6 @@ public interface ShoppingListIngredientDAO {
     @Insert
     void insertAll(ShoppingListIngredient... ingredients);
 
-    @Delete
-    void delete(ShoppingListIngredient ingredient);
-
+    @Query("delete from shoppinglistingredient where ingredient_name = (:ingredientNames)")
+    void delete(String ingredientNames);
 }

@@ -14,12 +14,17 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import com.meri.recipe_app.R;
+import com.meri.recipe_app.ShoppingListIngredient;
+import com.meri.recipe_app.database.RecipeDatabase;
 
 import java.util.ArrayList;
 
 public class IngredientDisplayFragment extends Fragment {
+
+    RecipeDatabase db;
 
     ListView listViewIngredient;
 
@@ -35,10 +40,11 @@ public class IngredientDisplayFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ingredient_display, container, false);
+
+        db = Room.databaseBuilder(getContext(), RecipeDatabase.class, "recipe-database5").build();
 
         ArrayList<String> list = getArguments().getStringArrayList("ingredients");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.row_array_item, list);
@@ -67,12 +73,29 @@ public class IngredientDisplayFragment extends Fragment {
                 // remove if in shopping list
                 if (inShoppingList) {
                     shoppingList.remove(ingredient);
-
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.shoppingListIngredientDAO().delete(list.get(i));
+                        }
+                    });
+                    t.start();
+//                    db.shoppingListIngredientDAO().delete();
                     Log.d("cm", "removed from shopping list");
                 }
                 // add if not in shopping list
                 else {
                     shoppingList.add(ingredient);
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ShoppingListIngredient ingredient = new ShoppingListIngredient();
+                            ingredient.setIngredientName(list.get(i));
+
+                            db.shoppingListIngredientDAO().insert(ingredient);
+                        }
+                    });
+                    t.start();
 
                     Log.d("cm", "added to shopping list");
                 }

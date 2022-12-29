@@ -1,5 +1,7 @@
 package com.meri.recipe_app.recipe;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.meri.recipe_app.DoneScreen;
+import com.meri.recipe_app.MainActivity;
 import com.meri.recipe_app.R;
 
 import java.util.ArrayList;
@@ -40,7 +44,8 @@ public class MakingOfDisplayFragment extends Fragment {
         listViewMakingOf = (ListView) view.findViewById(R.id.listMakingOfFragmentDisplay);
         listViewMakingOf.setAdapter(adapter);
 
-        ArrayList<String> shoppingList = new ArrayList<>();
+        ArrayList<String> doneSteps = new ArrayList<>();
+//        doneSteps.addAll(list);
 
         listViewMakingOf.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -48,38 +53,39 @@ public class MakingOfDisplayFragment extends Fragment {
 
                 String makingOf = list.get(i);
 
-                // TODO: add to shopping list
-                boolean inShoppingList = false;
+                boolean inDoneStepsList = false;
 
-                // check if item in shopping list
-                for (String shoppingIngredient : shoppingList) {
-                    if (shoppingIngredient.compareTo(makingOf) == 0){
-                        inShoppingList = true;
+                // check if item in steps list
+                for (String step : doneSteps) {
+                    if (step.compareTo(makingOf) == 0){
+                        inDoneStepsList = true;
                         break;
                     }
                 }
 
-                // remove if in shopping list
-                if (inShoppingList) {
-                    shoppingList.remove(makingOf);
-
-                    Log.d("cm", "removed from shopping list");
+                // remove if in steps list
+                if (inDoneStepsList) {
+                    doneSteps.remove(makingOf);
+                    view.setBackgroundResource(R.drawable.rounded_shape);
+                    Log.d("cm", "removed from steps list");
                 }
-                // add if not in shopping list
+                // add if not in steps list
                 else {
-                    shoppingList.add(makingOf);
+                    doneSteps.add(makingOf);
+                    view.setBackgroundResource(R.drawable.rounded_shape_done);
+                    Log.d("cm", "added to steps list");
+                }
 
-                    Log.d("cm", "added to shopping list");
+                if (doneSteps.size() == list.size()){
+                    Intent intent = new Intent(getActivity(), DoneScreen.class);
+                    startActivity(intent);
+                    Log.d("cm", "done");
                 }
 
                 return true;
             }
+
         });
-
-
-
-
-
 
         return view;
     }
