@@ -27,6 +27,7 @@ public class IngredientDisplayFragment extends Fragment {
     RecipeDatabase db;
 
     ListView listViewIngredient;
+    ArrayList<String> shoppingList = new ArrayList<>();
 
     public IngredientDisplayFragment(){}
     public static IngredientDisplayFragment newInstance(ArrayList<String> ingredients){
@@ -51,7 +52,19 @@ public class IngredientDisplayFragment extends Fragment {
         listViewIngredient = (ListView) view.findViewById(R.id.listIngredientFragmentDisplay);
         listViewIngredient.setAdapter(adapter);
 
-        ArrayList<String> shoppingList = new ArrayList<>();
+//        if u want to refresh ingredient list everytime the activity is being created
+//        Thread t = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                shoppingList = (ArrayList<String>) db.shoppingListIngredientDAO().getAllIngredients();
+//            }
+//        });
+//        t.start();
+//        try {
+//            t.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         listViewIngredient.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -80,7 +93,7 @@ public class IngredientDisplayFragment extends Fragment {
                         }
                     });
                     t.start();
-//                    db.shoppingListIngredientDAO().delete();
+                    view.setBackgroundResource(R.drawable.rounded_shape);
                     Log.d("cm", "removed from shopping list");
                 }
                 // add if not in shopping list
@@ -91,12 +104,11 @@ public class IngredientDisplayFragment extends Fragment {
                         public void run() {
                             ShoppingListIngredient ingredient = new ShoppingListIngredient();
                             ingredient.setIngredientName(list.get(i));
-
                             db.shoppingListIngredientDAO().insert(ingredient);
                         }
                     });
                     t.start();
-
+                    view.setBackgroundResource(R.drawable.rounded_shape_done);
                     Log.d("cm", "added to shopping list");
                 }
 

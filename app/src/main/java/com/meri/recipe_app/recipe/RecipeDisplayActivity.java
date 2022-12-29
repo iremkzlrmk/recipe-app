@@ -32,7 +32,6 @@ public class RecipeDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_display);
 
         TextView txtRecipeName = findViewById(R.id.txtNameRecipeDisplay);
-//        ListView lvIngredients = findViewById(R.id.listRecipeMakingOf);
 
         ImageView imgRecipeImage = findViewById(R.id.imgRecipeDisplay);
 
@@ -48,7 +47,6 @@ public class RecipeDisplayActivity extends AppCompatActivity {
         makingOfs = bundle.getStringArrayList("recipeMakingOf");
 
         ArrayAdapter<String> adapterIngredients = new ArrayAdapter<String>(getApplicationContext(), R.layout.row_array_item, ingredients);
-//        lvIngredients.setAdapter(adapterIngredients);
 
         //-------------------------------------------
 
@@ -69,8 +67,6 @@ public class RecipeDisplayActivity extends AppCompatActivity {
 
                 }
                 else{
-//                    ft.replace(R.id.containerRecipeDisplayActivity, IngredientDisplayFragment.newInstance(ingredients));
-//                    buttonStart.setText("done");
                     Intent intent = new Intent(RecipeDisplayActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

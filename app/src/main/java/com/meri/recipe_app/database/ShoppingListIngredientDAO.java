@@ -13,8 +13,8 @@ import java.util.List;
 public interface ShoppingListIngredientDAO {
 
 
-    @Query("select * from shoppinglistingredient")
-    List<ShoppingListIngredient> getAllIngredients();
+    @Query("select ingredient_name from shoppinglistingredient")
+    List<String> getAllIngredients();
 
     @Query("select * from shoppinglistingredient where ingredient_name in (:ingredientNames)")
     List<ShoppingListIngredient> loadAllByIngredientName(String[] ingredientNames);
@@ -27,4 +27,9 @@ public interface ShoppingListIngredientDAO {
 
     @Query("delete from shoppinglistingredient where ingredient_name = (:ingredientNames)")
     void delete(String ingredientNames);
+
+    @Query("delete from shoppinglistingredient")
+    void deleteAll();
+
+
 }
