@@ -66,14 +66,14 @@ public class IngredientDisplayFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String ingredient = list.get(i);
+                String ingredientName = list.get(i);
 
                 // TODO: add to shopping list
                 boolean inShoppingList = false;
 
                 // check if item in shopping list
                 for (String shoppingIngredient : shoppingList) {
-                    if (shoppingIngredient.compareTo(ingredient) == 0){
+                    if (shoppingIngredient.compareTo(ingredientName) == 0){
                         inShoppingList = true;
                         break;
                     }
@@ -81,11 +81,11 @@ public class IngredientDisplayFragment extends Fragment {
 
                 // remove if in shopping list
                 if (inShoppingList) {
-                    shoppingList.remove(ingredient);
+                    shoppingList.remove(ingredientName);
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            db.shoppingListIngredientDAO().delete(list.get(i));
+                            db.shoppingListIngredientDAO().delete(ingredientName);
                         }
                     });
                     t.start();
@@ -94,12 +94,12 @@ public class IngredientDisplayFragment extends Fragment {
                 }
                 // add if not in shopping list
                 else {
-                    shoppingList.add(ingredient);
+                    shoppingList.add(ingredientName);
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             ShoppingListIngredient ingredient = new ShoppingListIngredient();
-                            ingredient.setIngredientName(list.get(i));
+                            ingredient.setIngredientName(ingredientName);
                             db.shoppingListIngredientDAO().insert(ingredient);
                         }
                     });

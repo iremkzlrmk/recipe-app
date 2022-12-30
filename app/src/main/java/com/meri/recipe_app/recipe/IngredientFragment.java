@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -62,6 +63,11 @@ public class IngredientFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String ingredient = txtIngredient.getText().toString();
+
+                if (ingredient.equals("")) {
+                    Toast.makeText(getContext(), "Please provide ingredient name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 adapter.notifyDataSetChanged();
 

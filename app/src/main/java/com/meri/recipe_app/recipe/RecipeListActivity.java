@@ -142,7 +142,6 @@ public class RecipeListActivity extends AppCompatActivity {
         @Override
         protected List<Recipe> doInBackground(Recipe... recipes) {
             db.recipeDAO().insert(recipes[0]);
-            db.shoppingListIngredientDAO().insert(new ShoppingListIngredient());
             return db.recipeDAO().getAllRecipes();
         }
 

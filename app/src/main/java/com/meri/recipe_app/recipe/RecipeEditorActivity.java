@@ -127,8 +127,8 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
     }
 
     @Override
-    public void addIngredient(String ingredients) {
-        editedRecipeIngredients.add(ingredients);
+    public void addIngredient(String ingredient) {
+        editedRecipeIngredients.add(ingredient);
     }
 
     @Override
