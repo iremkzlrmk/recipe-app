@@ -4,7 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.meri.recipe_app.ShoppingListIngredient;
+import com.meri.recipe_app.shopping_list.ShoppingListIngredient;
 import com.meri.recipe_app.chef_recipe.ChefRecipe;
 import com.meri.recipe_app.utils.Converters;
 import com.meri.recipe_app.recipe.Recipe;

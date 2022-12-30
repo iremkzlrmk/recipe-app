@@ -1,11 +1,10 @@
 package com.meri.recipe_app.database;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.meri.recipe_app.ShoppingListIngredient;
+import com.meri.recipe_app.shopping_list.ShoppingListIngredient;
 
 import java.util.List;
 

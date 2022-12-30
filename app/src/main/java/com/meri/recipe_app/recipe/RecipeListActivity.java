@@ -6,8 +6,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,7 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.meri.recipe_app.R;
-import com.meri.recipe_app.ShoppingListIngredient;
+import com.meri.recipe_app.shopping_list.ShoppingListIngredient;
 import com.meri.recipe_app.database.RecipeDatabase;
 
 import java.util.ArrayList;

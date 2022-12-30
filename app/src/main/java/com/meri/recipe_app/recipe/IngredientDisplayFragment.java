@@ -7,17 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
 import com.meri.recipe_app.R;
-import com.meri.recipe_app.ShoppingListIngredient;
+import com.meri.recipe_app.shopping_list.ShoppingListIngredient;
 import com.meri.recipe_app.database.RecipeDatabase;
 
 import java.util.ArrayList;

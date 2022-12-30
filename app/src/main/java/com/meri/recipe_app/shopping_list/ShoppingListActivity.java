@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.shopping_list;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -11,9 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.meri.recipe_app.chef_recipe.ChefRecipeAdapter;
+import com.meri.recipe_app.R;
 import com.meri.recipe_app.database.RecipeDatabase;
-import com.meri.recipe_app.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ShoppingListActivity"
+            android:name=".shopping_list.ShoppingListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

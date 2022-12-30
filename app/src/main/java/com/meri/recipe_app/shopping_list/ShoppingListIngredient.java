@@ -1,4 +1,4 @@
-package com.meri.recipe_app;
+package com.meri.recipe_app.shopping_list;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

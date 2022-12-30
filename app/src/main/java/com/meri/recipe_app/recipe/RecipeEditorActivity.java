@@ -13,10 +13,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.meri.recipe_app.R;
 
@@ -29,8 +31,8 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
     public ArrayList<String> editedRecipeMakingOf = new ArrayList<>();
     public ArrayList<String> editedRecipeIngredients = new ArrayList<>();
 
-    EditText recipeName;
-    ImageView recipeImage;
+    EditText txtRecipeName;
+    ImageView imgRecipeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +45,16 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
                 if (result.getResultCode()== Activity.RESULT_OK){
                     Bundle bundle = result.getData().getExtras();
                     Bitmap image = (Bitmap) bundle.get("data");
-                    recipeImage.setImageBitmap(image);
+                    imgRecipeImage.setImageBitmap(image);
                 }
             }
         });
 
         //-------------------------------------------
 
-        recipeName = (EditText) findViewById(R.id.txtRecipeEditorActivityName);
-
-        recipeImage = findViewById(R.id.imgRecipe);
-        recipeImage.setImageResource(R.drawable.ic_launcher_foreground);
+        txtRecipeName = (EditText) findViewById(R.id.txtRecipeEditorActivityName);
+        imgRecipeImage = findViewById(R.id.imgRecipe);
+        imgRecipeImage.setImageResource(R.drawable.korean);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.containerRecipeEditorActivity, IngredientFragment.newInstance(editedRecipeIngredients));
@@ -61,7 +62,7 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
 
         //-------------------------------------------
 
-        recipeImage.setOnClickListener(new View.OnClickListener() {
+        imgRecipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -93,15 +94,24 @@ public class RecipeEditorActivity extends AppCompatActivity implements MakingOfF
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String recipeName = txtRecipeName.getText().toString();
+                Bitmap recipeImage = ((BitmapDrawable)imgRecipeImage.getDrawable()).getBitmap();
+
+                // error handlers
+                if (recipeName.equals("")) {
+                    Toast.makeText(RecipeEditorActivity.this, "Please provide recipe name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-
-                bundle.putString("recipeName",recipeName.getText().toString());
+                bundle.putString("recipeName",recipeName);
                 bundle.putStringArrayList("recipeMakingOf",editedRecipeMakingOf);
                 bundle.putStringArrayList("recipeIngredients", editedRecipeIngredients);
-                bundle.putParcelable("bitmap",((BitmapDrawable)recipeImage.getDrawable()).getBitmap());
-
+                bundle.putParcelable("bitmap",recipeImage);
                 intent.putExtras(bundle);
+
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

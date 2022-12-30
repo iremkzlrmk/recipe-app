@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.meri.recipe_app.chef_recipe.ChefRecipeListActivity;
 import com.meri.recipe_app.recipe.RecipeListActivity;
+import com.meri.recipe_app.shopping_list.ShoppingListActivity;
 import com.meri.recipe_app.utils.Admin;
 
 public class MainActivity extends AppCompatActivity {
