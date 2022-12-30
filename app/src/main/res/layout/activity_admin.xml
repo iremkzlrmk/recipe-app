@@ -32,6 +32,15 @@
         android:text="back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDeleteShoppingListAdmin" />
+
+    <Button
+        android:id="@+id/btnDeleteShoppingListAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delete shopping list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDeleteChefRecipesAdmin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,7 @@ public class Admin extends AppCompatActivity {
 
         Button btnAddChefRecipes = findViewById(R.id.btnAddChefRecipesAdmin);
         Button btnDeleteChefRecipes = findViewById(R.id.btnDeleteChefRecipesAdmin);
+        Button btnDeleteShoppingList = findViewById(R.id.btnDeleteShoppingListAdmin);
         Button btnBack = findViewById(R.id.btnBackAdmin);
 
         //-------------------------------------------
@@ -191,6 +192,13 @@ public class Admin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.chefRecipeDAO().deleteAll();
+            }
+        });
+
+        btnDeleteShoppingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.shoppingListIngredientDAO().deleteAll();
             }
         });
 
